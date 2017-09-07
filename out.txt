@@ -1,0 +1,5 @@
+Filling queue with 20000 CIFAR images before starting to train. This will take a few minutes.
+[64, 16]
+[16, 10]
+[64, 10]
+step 0, loss = 30977476.00 (2.2 examples/sec; 7.304 sec/batch)
