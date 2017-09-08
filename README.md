@@ -1,4 +1,12 @@
-# ResNet in TensorFlow
+# ResNet with Selu in Tensorflow
+
+ResNets implemented with [Selu activation](https://arxiv.org/abs/1706.02515). The code has been updated to Tensorflow 1.3 and Python 3.5.
+
+
+
+The readme from the original repository is included below. Information there may be inaccurate now, but is kept for the paper link and information about the original repo this code was adapted from.
+
+## ResNet in TensorFlow
 
 Implemenation of [Deep Residual Learning for Image
 Recognition](http://arxiv.org/abs/1512.03385).  Includes a tool to use He et
@@ -6,7 +14,7 @@ al's published trained Caffe weights in TensorFlow.
 
 MIT license. Contributions welcome.
 
-## Goals
+### Goals
 
 * Be able to use the pre-trained model's that [Kaiming He has provided for
   Caffe](https://github.com/KaimingHe/deep-residual-networks). The `convert.py`
@@ -26,7 +34,7 @@ MIT license. Contributions welcome.
 * Be able to train out of the box on CIFAR-10, 100, and ImageNet. (Implementation incomplete)
 
 
-## Pretrained Model
+### Pretrained Model
 
 To convert the published Caffe pretrained model, run `convert.py`. However
 Caffe is annoying to install so I'm providing a download of the output of
@@ -35,7 +43,7 @@ convert.py:
 [tensorflow-resnet-pretrained-20160509.tar.gz.torrent](https://raw.githubusercontent.com/ry/tensorflow-resnet/master/data/tensorflow-resnet-pretrained-20160509.tar.gz.torrent)  464M
 
 
-## Notes
+### Notes
 
 * This code depends on [TensorFlow git commit
   cf7ce8](https://github.com/tensorflow/tensorflow/commit/cf7ce8a7879b6a7ba90441724ea3f8353917a515)
