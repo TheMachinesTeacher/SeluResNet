@@ -44,10 +44,11 @@ tf.app.flags.DEFINE_boolean('use_bn', True, 'use batch normalization. otherwise 
 IMAGE_SIZE = 32
 
 # Global constants describing the CIFAR-10 data set.#
-NUM_CLASSES = 10
 NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 50000
 NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 10000
 
+selu = True
+numClasses = 10
 
 def read_cifar10(filename_queue):
     """Reads and parses examples from CIFAR10 data files.
@@ -266,8 +267,6 @@ def getInputs(eval_data, data_dir, batch_size, numClasses):
                                            shuffle=False)
 
 def main(argv=None):  # pylint: disable=unused-argument
-    numClasses = 10
-
     images_train, labels_train = getDistortedInputs(FLAGS.data_dir, FLAGS.batch_size, numClasses)
     images_val, labels_val = getInputs(True, FLAGS.data_dir, FLAGS.batch_size, numClasses)
 
@@ -277,10 +276,20 @@ def main(argv=None):  # pylint: disable=unused-argument
         lambda: (images_train, labels_train),
         lambda: (images_val, labels_val))
 
-    #logits = inference_small(images, num_classes=10, is_training=is_training, use_bias=(not FLAGS.use_bn), num_blocks=3)
-    logits = buildCIFARModel(images, numClasses=10)
+    if selu:
+        logits = buildCIFARModel(images, numClasses)
+    else:
+        logits = inference_small(images, num_classes=numClasses, is_training=is_training, use_bias=(not FLAGS.use_bn), num_blocks=3)
     train(is_training, logits, images, labels)
 
+def StartCifar10():
+    numClasses = 10
+    tf.app.run()
+
+def StartCifar100():
+    numClasses = 100
+    tf.app.run()
 
 if __name__ == '__main__':
+    print(numClasses)
     tf.app.run()

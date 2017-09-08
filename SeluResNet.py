@@ -73,7 +73,6 @@ def fcSeluResBlock(x, outChannels=None, innerUnits=None, name=""):
             return tf.add(x, fc)
 
 def fcLayer(x, shape, name=""):
-    print(shape)
     with tf.variable_scope(name):
         w = tf.get_variable(name+"_weights", shape, tf.float32, tf.random_normal_initializer(stddev=np.sqrt(1/shape[0])))
         b = tf.get_variable(name+"_biases", shape[-1], tf.float32, tf.zeros_initializer())
