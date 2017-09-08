@@ -144,18 +144,6 @@ def _imagenet_preprocess(rgb):
     return bgr
 
 
-def loss(logits, labels):
-    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=labels, logits=logits)
-    cross_entropy_mean = tf.reduce_mean(cross_entropy)
- 
-    regularization_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
-
-    loss_ = tf.add_n([cross_entropy_mean] + regularization_losses)
-    tf.summary.scalar('loss', loss_)
-
-    return loss_
-
-
 def stack(x, c):
     for n in range(c['num_blocks']):
         s = c['stack_stride'] if n == 0 else 1
