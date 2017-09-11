@@ -2,7 +2,11 @@
 
 ResNets implemented with [Selu activation](https://arxiv.org/abs/1706.02515). The code has been updated to Tensorflow 1.3 and Python 3.5.
 
+I thought that maybe this would provide some performance increase. I was wrong. This network doesn't like to train, but when it does, it only is roughly 50% accurate on CIFAR-10. Once I saw that result, I decided it wasn't worth testing with CIFAR-100 or Imagenet. This was a fun experiment and synthesis of two papers.
 
+You'll notice I left out normalization of all kinds because that is what selu activation is supposed to do if you initialize the weight and bias variables correctly.
+
+If you think I did something wrong and got Selu activation to work well as described in their paper with ResNets, please let me know! I'd be excited to hear about it.
 
 The readme from the original repository is included below. Information there may be inaccurate now, but is kept for the paper link and information about the original repo this code was adapted from.
 

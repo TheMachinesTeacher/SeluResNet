@@ -31,28 +31,6 @@ def buildImageNetModel(x, numClasses=1000, numBlocks=[3, 4, 6, 3]):
             x = fcSeluResBlock(x, numClasses, name="LastLayer")
         return x
 
-def buildCIFARModel(x, numClasses=1000, numBlocks=3):
-    with tf.variable_scope('scale1'):
-        x = convSeluResBlock(x, 16, name='scale1Conv')
-        x = selu(x)
-        for i in range(numBlocks):
-            x = selu(convSeluResBlock(x, 16, name='scale1Conv'+str(i)))
-
-    with tf.variable_scope('scale2'):
-        x = selu(convSeluResBlock(x, 32, 2, name='scale2Conv0'))
-        for i in range(numBlocks-1):
-            x = selu(convSeluResBlock(x, 32, name='scale2Conv'+str(i+1)))
-
-    with tf.variable_scope('scale3'):
-        x = selu(convSeluResBlock(x, 64, 2, name='scale3Conv0'))
-        for i in range(numBlocks-1):
-            x = selu(convSeluResBlock(x, 64, name='scale3Conv'+str(i+1)))
-
-    x = tf.reduce_mean(x, reduction_indices=[1,2], name='ave_pool')
-    with tf.variable_scope('fc'):
-        x = fcSeluResBlock(x, numClasses, name="LastLayer")
-    return x
-
 # x.get_shape() = [batchSize, length, channels]
 # if outChannels=None, the result of this function will be a tensor with the same shape as x
 # if innerUnits=None, the hidden layer between the fc layers will be equal to x.get_shape()[1]

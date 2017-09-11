@@ -89,14 +89,10 @@ def inference(x, is_training,
 # This is what they use for CIFAR-10 and 100.
 # See Section 4.2 in http://arxiv.org/abs/1512.03385
 def inference_small(x,
-                    is_training,
                     num_blocks=3, # 6n+2 total weight layers will be used.
                     use_bias=False, # defaults to using batch norm
                     num_classes=10):
     c = Config()
-    c['is_training'] = tf.convert_to_tensor(is_training,
-                                            dtype='bool',
-                                            name='is_training')
     c['use_bias'] = use_bias
     c['fc_units_out'] = num_classes
     c['num_blocks'] = num_blocks
@@ -249,9 +245,6 @@ def bn(x, c):
     tf.add_to_collection(UPDATE_OPS_COLLECTION, update_moving_mean)
     tf.add_to_collection(UPDATE_OPS_COLLECTION, update_moving_variance)
 
-    mean, variance = control_flow_ops.cond(
-        c['is_training'], lambda: (mean, variance),
-        lambda: (moving_mean, moving_variance))
 
     x = tf.nn.batch_normalization(x, mean, variance, beta, gamma, BN_EPSILON)
     #x.set_shape(inputs.get_shape()) ??

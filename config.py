@@ -3,6 +3,20 @@
 import tensorflow as tf
 
 FLAGS = tf.app.flags.FLAGS
+tf.app.flags.DEFINE_string('train_dir', '/tmp/resnet_train',
+                           """Directory where to write event logs """
+                           """and checkpoint.""")
+tf.app.flags.DEFINE_float('learning_rate', 0.0001, "learning rate.")
+tf.app.flags.DEFINE_integer('batch_size', 16, "batch size")
+tf.app.flags.DEFINE_integer('max_steps', 500000, "max steps")
+tf.app.flags.DEFINE_boolean('resume', False,
+                            'resume from latest saved state')
+tf.app.flags.DEFINE_boolean('minimal_summaries', True,
+			    'produce fewer summaries to save HD space')
+tf.app.flags.DEFINE_string('data_dir', '/media/HD/datasets',
+                           'where to store the dataset')
+tf.app.flags.DEFINE_boolean('use_bn', True, 'use batch normalization. otherwise use biases')
+
 
 class Config:
     def __init__(self):
